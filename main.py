@@ -1,20 +1,27 @@
 from stats import get_num_words
+import sys
 
 def main():
-    book_path = "books/frankenstein.txt"
+
+    if len(sys.argv) != 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    else:
+        book_path = sys.argv[1]
+    #book_path = "books/frankenstein.txt"
     text = get_book_text(book_path)
     num_words = get_num_words(text)
     chars_dict = get_chars_dict(text)
     dict_list = build_list(chars_dict)
     sorted = sort_dict(dict_list)
-    print("--- Begin report of books/frankenstein.txt ---")
+    print(f"--- Begin report of {book_path} ---")
     
     print(f"{num_words} words found in the document")
     print()
     for dict in sorted:
         cchar = dict["letter"]
         ccount = dict["num"]
-        print(f"The '{cchar}' character was found {ccount} times")
+        print(f"The '{cchar}: {ccount}' character was found {ccount} times")
     print("--- End report ---")
 
 def get_num_words(text):
